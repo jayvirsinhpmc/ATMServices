@@ -1,0 +1,62 @@
+
+Bank
+-------
+id - primary key
+bank_name
+bank_pwd
+
+Account
+---------
+id - primary key
+bank_id - forieng key
+account_type - Saving, Salary
+account_status - Active, Deactive
+account_pwd
+balance
+
+Customer
+---------
+id - primary key
+name
+account_id - forieng key
+
+ATM
+-----------
+id - primary key
+atm_name
+atm_pwd
+balance
+
+Transaction
+---------
+id - primary key
+account_id - forieng key
+atm_id - forieng key
+transaction_type - debit,credit
+amount
+
+
+
+validation
+1. atm balance
+2. account balance
+3. account status
+4. PWD check
+
+
+command line
+======================
+-> atm transaction -> select atm -> select account (PWD) -> perform debit or credit -> show balance
+
+-> display balance
+	-> atm balance (PWD)
+	-> customer account balance (PWD)
+
+-> add or update
+	-> add atm or update amt balance (PWD)
+	-> add or update bank (PWD)
+	-> add or update customer with account (PWD)
+
+
+
+
