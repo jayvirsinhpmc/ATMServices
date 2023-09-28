@@ -6,7 +6,16 @@ public class Account {
 	private int bankId;
 	private int accountType;
 	private int accountStatus;
-	private float balance;
+	private String accountPwd;
+	private int balance;
+
+	public Account() {
+	}
+
+	public Account(int id, String accountPwd) {
+		this.id = id;
+		this.accountPwd = accountPwd;
+	}
 
 	public int getId() {
 		return id;
@@ -40,12 +49,20 @@ public class Account {
 		this.accountStatus = accountStatus;
 	}
 
-	public float getBalance() {
+	public int getBalance() {
 		return balance;
 	}
 
-	public void setBalance(float balance) {
+	public void setBalance(int balance) {
 		this.balance = balance;
+	}
+
+	public String getAccountPwd() {
+		return accountPwd;
+	}
+
+	public void setAccountPwd(String accountPwd) {
+		this.accountPwd = accountPwd;
 	}
 
 	@Override

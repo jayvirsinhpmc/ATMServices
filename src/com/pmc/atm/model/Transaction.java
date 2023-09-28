@@ -7,7 +7,7 @@ public class Transaction {
 	private int atmId;
 	private int accountid;
 	private int transactionType;
-	private float amount;
+	private int amount;
 	private Date dateTimeCreated;
 
 	public int getId() {
@@ -42,11 +42,11 @@ public class Transaction {
 		this.transactionType = transactionType;
 	}
 
-	public float getAmount() {
+	public int getAmount() {
 		return amount;
 	}
 
-	public void setAmount(float amount) {
+	public void setAmount(int amount) {
 		this.amount = amount;
 	}
 

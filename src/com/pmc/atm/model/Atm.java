@@ -3,7 +3,18 @@ package com.pmc.atm.model;
 public class Atm {
 	private int id;
 	private String name;
-	private float balance;
+	private String pwd;
+	private int balance;
+
+	public Atm() {
+	}
+
+	public Atm(int id, String name, String pwd, int balance) {
+		this.id = id;
+		this.name = name;
+		this.pwd = pwd;
+		this.balance = balance;
+	}
 
 	public int getId() {
 		return id;
@@ -21,17 +32,19 @@ public class Atm {
 		this.name = name;
 	}
 
-	public float getBalance() {
+	public String getPwd() {
+		return pwd;
+	}
+
+	public void setPwd(String pwd) {
+		this.pwd = pwd;
+	}
+
+	public int getBalance() {
 		return balance;
 	}
 
-	public void setBalance(float balance) {
+	public void setBalance(int balance) {
 		this.balance = balance;
 	}
-
-	@Override
-	public String toString() {
-		return "Atm [id=" + id + ", name=" + name + ", balance=" + balance + "]";
-	}
-
 }

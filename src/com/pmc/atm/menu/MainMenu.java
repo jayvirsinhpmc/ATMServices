@@ -19,7 +19,8 @@ public class MainMenu {
 
 		switch (option) {
 		case 1:
-			MenuOne.menu(scan);
+			MenuOne mo = new MenuOne();
+			mo.menu(scan);
 			break;
 		case 2:
 			MenuTwo.menu(scan);

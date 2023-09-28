@@ -9,11 +9,11 @@ public class DatabaseConnection {
 	private static Connection con;
 
 	static {
-		String url = "jdbc:mysql://localhost:3306/pmc_atm_schema";
+		String url = "jdbc:mysql://localhost:3306/atm_service";
 		String user = "root";
 		String pass = "root";
 		try {
-			Class.forName("com.mysql.jdbc.Driver");
+			Class.forName("com.mysql.cj.jdbc.Driver");
 			con = DriverManager.getConnection(url, user, pass);
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();

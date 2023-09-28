@@ -1,26 +1,23 @@
 package com.pmc.atm.menu;
 
 import java.util.Scanner;
-
 import com.pmc.atm.ApplicationMain;
 
 public class MenuOne {
-	public static void menu(Scanner scan) {
+	public void menu(Scanner scan) {
 		System.out.println("===============================================================");
 		System.out.println(" Do Transaction ");
 		System.out.println("===============================================================");
 		System.out.println("Enter 1 -> Select ATM");
-
 		System.out.println("Enter 9 -> back");
 		System.out.println("Enter 0 -> Exit");
-
 		System.out.print("Enter any number: ");
 		int option = scan.nextInt();
 
 		switch (option) {
 		case 1:
-			break;
-		case 2:
+			SelectAtmMenu sam = new SelectAtmMenu();
+			sam.menu(scan);
 			break;
 		case 9:
 			MainMenu.mainMenu(scan);
