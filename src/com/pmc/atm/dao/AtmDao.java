@@ -15,10 +15,10 @@ public class AtmDao {
 //	method to get details of all the atms
 	public List<Atm> getAllAtmDetails() throws SQLException {
 		List<Atm> list = new ArrayList<>();
-		Connection connection = DatabaseConnection.getConnection();
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		try {
+
+		try (Connection connection = DatabaseConnection.getConnection()) {
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
 			String selectAllAtmSql = "SELECT * FROM atm";
 			pstmt = connection.prepareStatement(selectAllAtmSql);
 			rs = pstmt.executeQuery();
@@ -32,12 +32,7 @@ public class AtmDao {
 				list.add(atm);
 			}
 		} catch (Exception exc) {
-			throw new SQLException(exc);
-		} finally {
-			connection.close();
-			if (null != pstmt) {
-				pstmt.close();
-			}
+			exc.printStackTrace();
 		}
 		return list;
 	}
@@ -45,38 +40,5 @@ public class AtmDao {
 
 	public Atm getAtmDetail(String name) {
 		return null;
-	}
-
-	public void updateAtmDetail(String name) throws SQLException {
-		Connection connection = DatabaseConnection.getConnection();
-		boolean autoCommit = false;
-		PreparedStatement pstmt = null;
-		try {
-
-			String updatePositionSql = "UPDATE employees SET position=? WHERE emp_id=?";
-			pstmt = connection.prepareStatement(updatePositionSql);
-			pstmt.setString(1, "lead developer");
-			pstmt.setInt(2, 1);
-
-			autoCommit = connection.getAutoCommit();
-
-			connection.setAutoCommit(false);
-
-			pstmt.executeUpdate();
-
-			connection.commit();
-
-		} catch (Exception exc) {
-			connection.rollback();
-			throw new SQLException(exc);
-		} finally {
-			connection.setAutoCommit(autoCommit);
-			connection.close();
-
-			if (null != pstmt) {
-				pstmt.close();
-			}
-		}
-
 	}
 }

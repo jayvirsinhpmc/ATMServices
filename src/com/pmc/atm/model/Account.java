@@ -4,8 +4,8 @@ public class Account {
 
 	private int id;
 	private int bankId;
-	private int accountType;
-	private int accountStatus;
+	private String accountType;
+	private String accountStatus;
 	private String accountPwd;
 	private int balance;
 
@@ -15,6 +15,15 @@ public class Account {
 	public Account(int id, String accountPwd) {
 		this.id = id;
 		this.accountPwd = accountPwd;
+	}
+
+	public Account(int id, int bankId, String accountType, String accountStatus, String accountPwd, int balance) {
+		this.id = id;
+		this.bankId = bankId;
+		this.accountType = accountType;
+		this.accountStatus = accountStatus;
+		this.accountPwd = accountPwd;
+		this.balance = balance;
 	}
 
 	public int getId() {
@@ -33,19 +42,19 @@ public class Account {
 		this.bankId = bankId;
 	}
 
-	public int getAccountType() {
+	public String getAccountType() {
 		return accountType;
 	}
 
-	public void setAccountType(int accountType) {
+	public void setAccountType(String accountType) {
 		this.accountType = accountType;
 	}
 
-	public int getAccountStatus() {
+	public String getAccountStatus() {
 		return accountStatus;
 	}
 
-	public void setAccountStatus(int accountStatus) {
+	public void setAccountStatus(String accountStatus) {
 		this.accountStatus = accountStatus;
 	}
 

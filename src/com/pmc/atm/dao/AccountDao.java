@@ -1,45 +1,55 @@
 package com.pmc.atm.dao;
 
+import com.pmc.atm.model.Account;
 import com.pmc.atm.util.DatabaseConnection;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 
 public class AccountDao {
 
-//    checking whether account is active or deactive using id and pwd
-    public boolean checkAccountStatus(int id, String pwd) throws SQLException {
-        boolean status = false;
-        Connection connection = DatabaseConnection.getConnection();
-        PreparedStatement pstmt = null;
-        ResultSet rs = null;
-        try {
-            String selectAllAtmSql = "SELECT ACCOUNT_STATUS FROM account WHERE ID = ? AND ACCOUNT_PWD = ?";
+//    get account details using id
+    public Account getAccountByID(int id) {
+        Account account = null;
+        try (Connection connection = DatabaseConnection.getConnection()){
+            PreparedStatement pstmt = null;
+            ResultSet rs = null;
+            String selectAllAtmSql = "SELECT * FROM account WHERE ID = ?";
             pstmt = connection.prepareStatement(selectAllAtmSql);
             pstmt.setInt(1, id);
-            pstmt.setString(2, pwd);
             rs = pstmt.executeQuery();
-            while (rs.next()) {
-                String stat = rs.getString("ATM_NAME");
-
-                if ("Active".equals(stat)) {
-                    status = true;
-                }
+            while (rs.next()){
+                account = new Account();
+                account.setId(rs.getInt("id"));
+                account.setBankId(rs.getInt("bank_id"));
+                account.setAccountType(rs.getString("account_type"));
+                account.setAccountStatus(rs.getString("account_status"));
+                account.setAccountPwd(rs.getString("account_pwd"));
+                account.setBalance(rs.getInt("balance"));
             }
         } catch (Exception exc) {
-            throw new SQLException(exc);
-        } finally {
-
-            if (null != pstmt) {
-                pstmt.close();
-            }
-            if (null != connection) {
-                connection.close();
-            }
+            exc.printStackTrace();
         }
+        return account;
+    }
 
+//    update account balance
+    public boolean isAccountBalanceUpdated(int id, int balance) {
+        boolean status = false;
+        try (Connection connection = DatabaseConnection.getConnection()){
+            PreparedStatement pstmt = null;
+            String selectAllAtmSql = "UPDATE account SET BALANCE = ? WHERE ID = ?";
+            pstmt = connection.prepareStatement(selectAllAtmSql);
+            pstmt.setInt(1, balance);
+            pstmt.setInt(2, id);
+            int rowUpdated = pstmt.executeUpdate();
+            if (rowUpdated == 1) {
+                status = true;
+            }
+        } catch (Exception exc) {
+            exc.printStackTrace();
+        }
         return status;
     }
 }

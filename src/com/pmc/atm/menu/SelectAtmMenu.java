@@ -55,7 +55,6 @@ public class SelectAtmMenu {
                 menu(scan);
         }
     }
-
     private void displayAtms(List<Atm> atms) {
         System.out.println("Available ATMs:");
         for (int i = 0; i < atms.size(); i++) {
