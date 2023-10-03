@@ -10,15 +10,10 @@ public class AccountService {
     public AccountService() {
         accountDao = new AccountDao();
     }
-    public boolean isAccountActive(int id) {
+
+    public boolean validateAccount(int id, String pwd) {
         Account account = accountDao.getAccountByID(id);
 
-        return account != null && account.getAccountStatus().equals("Active");
-    }
-
-    public boolean isAccountAndPasswordMatch(int id, String pwd) {
-        Account account = accountDao.getAccountByID(id);
-
-        return account != null && account.getAccountPwd().equals(pwd);
+        return account != null && account.getAccountStatus().equals("Active") && account.getAccountPwd().equals(pwd);
     }
 }

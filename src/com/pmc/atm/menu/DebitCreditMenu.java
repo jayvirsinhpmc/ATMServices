@@ -4,14 +4,18 @@ import com.pmc.atm.ApplicationMain;
 import com.pmc.atm.dao.AccountDao;
 import com.pmc.atm.model.Atm;
 import com.pmc.atm.service.AccountService;
-import com.pmc.atm.service.AtmService;
+import com.pmc.atm.service.TransactionService;
 
 import java.util.Scanner;
 
 public class DebitCreditMenu {
 
-    Atm selectedAtm;
-    AccountDao accountDao;
+    private Atm selectedAtm;
+    private AccountDao accountDao;
+
+    public DebitCreditMenu () {
+
+    }
     public DebitCreditMenu(Atm selectedAtm) {
         this.selectedAtm = selectedAtm;
         this.accountDao = new AccountDao();
@@ -23,7 +27,7 @@ public class DebitCreditMenu {
         System.out.println("===============================================================");
         System.out.println("Enter 1 -> Debit Money");
         System.out.println("Enter 2 -> Credit Money");
-        System.out.println("Enter 9 -> back");
+        System.out.println("Enter 9 -> Back");
         System.out.println("Enter 0 -> Exit");
         System.out.print("Enter any number: ");
         int option = scan.nextInt();
@@ -43,56 +47,70 @@ public class DebitCreditMenu {
                 ApplicationMain.exit();
                 break;
             default:
-                System.out.println("Please enter valid option.");
+                System.out.println("Please enter a valid option.");
                 menu(scan);
-
         }
     }
 
-    private static boolean isAccountValidate(Scanner scan) {
-        AccountService as = new AccountService();
+    private void performDebit(Scanner scan) {
+        AccountService accountService = new AccountService();
+        int accountId = validateAndGetAccountId(scan);
 
+        if (accountId != -1) {
+            System.out.print("Enter the amount to debit: ");
+            int amount = scan.nextInt();
+            TransactionService ts = new TransactionService();
+            boolean debitSuccess = ts.performDebit(accountId, amount);
+
+            if (debitSuccess) {
+                System.out.println("Debit successful.");
+            } else {
+                System.out.println("Debit failed.");
+            }
+        }
+
+        // After the transaction, return to the main menu
+        SelectAtmMenu sam = new SelectAtmMenu();
+        sam.menu(scan);
+    }
+
+    private void performCredit(Scanner scan) {
+        TransactionService ts = new TransactionService();
+        int accountId = validateAndGetAccountId(scan);
+
+        if (accountId != -1) {
+            System.out.print("Enter the amount to credit: ");
+            int amount = scan.nextInt();
+            boolean creditSuccess = ts.performCredit(accountId, amount);
+
+            if (creditSuccess) {
+                System.out.println("Credit successful.");
+            } else {
+                System.out.println("Credit failed.");
+            }
+        }
+
+        // After the transaction, return to the main menu
+        SelectAtmMenu sam = new SelectAtmMenu();
+        sam.menu(scan);
+    }
+
+    private int validateAndGetAccountId(Scanner scan) {
         System.out.print("Enter Account ID: ");
-        int id = scan.nextInt();
+        int accountId = scan.nextInt();
         scan.nextLine();
         System.out.print("Enter Account Password: ");
         String pwd = scan.nextLine();
         System.out.println("Please wait while we check your account...");
 
-        boolean isAccountActive = as.isAccountActive(id);
-        boolean isIDAndPasswordMatch = as.isAccountAndPasswordMatch(id, pwd);
+        AccountService as = new AccountService();
+        boolean isValid = as.validateAccount(accountId, pwd);
 
-        if (isAccountActive) {
-            System.out.println("Your account is inactive. Please contact your bank.");
-            return false; // Return false if validation fails
-        } else if (isIDAndPasswordMatch) {
-            System.out.println("Your Account ID and Password do not match. Try again.");
-            return false; // Return false if validation fails
+        if (!isValid) {
+            System.out.println("Account validation failed. Please try again.");
+            return -1;
         }
-        return true; // Return true if validation passes
-    }
 
-    private static void performCredit(Scanner scan){
-
-        boolean isAccountValidate = isAccountValidate(scan);
-        System.out.println(isAccountValidate);
-
-        if (isAccountValidate) {
-            AccountService accService = new AccountService();
-            AtmService atmService = new AtmService();
-        } else {
-            System.out.println("Look's good.");
-        }
-    }
-
-    private static void performDebit(Scanner scan) {
-        AccountService accsservice = new AccountService();
-        AtmService atmservice = new AtmService();
-
-        System.out.print("Enter Account ID: ");
-        int id = scan.nextInt();
-        scan.nextLine();
-        System.out.print("Enter Account Password: ");
-        String pwd = scan.nextLine();
+        return accountId;
     }
 }
