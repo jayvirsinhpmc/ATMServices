@@ -6,7 +6,7 @@ public class Transaction {
 	private int id;
 	private int atmId;
 	private int accountid;
-	private int transactionType;
+	private String transactionType;
 	private int amount;
 	private Date dateTimeCreated;
 
@@ -34,11 +34,11 @@ public class Transaction {
 		this.accountid = accountid;
 	}
 
-	public int getTransactionType() {
+	public String getTransactionType() {
 		return transactionType;
 	}
 
-	public void setTransactionType(int transactionType) {
+	public void setTransactionType(String transactionType) {
 		this.transactionType = transactionType;
 	}
 

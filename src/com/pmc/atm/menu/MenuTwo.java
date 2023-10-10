@@ -22,6 +22,8 @@ public class MenuTwo {
 			MenuFour.menu(scan);
 			break;
 		case 2:
+			AccountBalanceCheckMenu accountBalanceCheckMenu = new AccountBalanceCheckMenu();
+			accountBalanceCheckMenu.validateAndGetBalance(scan);
 			break;
 		case 9:
 			MainMenu.mainMenu(scan);

@@ -9,10 +9,12 @@ import java.sql.ResultSet;
 
 public class AccountDao {
 
-//    get account details using id
+
+    //    get account details using id
     public Account getAccountByID(int id) {
         Account account = null;
-        try (Connection connection = DatabaseConnection.getConnection()){
+        try {
+            Connection connection = DatabaseConnection.getConnection();
             PreparedStatement pstmt = null;
             ResultSet rs = null;
             String selectAllAtmSql = "SELECT * FROM account WHERE ID = ?";
@@ -28,6 +30,7 @@ public class AccountDao {
                 account.setAccountPwd(rs.getString("account_pwd"));
                 account.setBalance(rs.getInt("balance"));
             }
+            connection.close();
         } catch (Exception exc) {
             exc.printStackTrace();
         }
@@ -35,18 +38,20 @@ public class AccountDao {
     }
 
 //    update account balance
-    public boolean isAccountBalanceUpdated(int id, int balance) {
+    public boolean isAccountBalanceUpdated(int accountId, int balance) {
         boolean status = false;
-        try (Connection connection = DatabaseConnection.getConnection()){
+        try {
+            Connection connection = DatabaseConnection.getConnection();
             PreparedStatement pstmt = null;
             String selectAllAtmSql = "UPDATE account SET BALANCE = ? WHERE ID = ?";
             pstmt = connection.prepareStatement(selectAllAtmSql);
             pstmt.setInt(1, balance);
-            pstmt.setInt(2, id);
+            pstmt.setInt(2, accountId);
             int rowUpdated = pstmt.executeUpdate();
             if (rowUpdated == 1) {
                 status = true;
             }
+            connection.close();
         } catch (Exception exc) {
             exc.printStackTrace();
         }

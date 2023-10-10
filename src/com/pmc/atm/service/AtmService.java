@@ -4,10 +4,15 @@ import com.pmc.atm.dao.AtmDao;
 import com.pmc.atm.model.Atm;
 
 public class AtmService {
+    private AtmDao atmDao;
 
-	AtmDao atmDao = new AtmDao();
+    public AtmService() {
+        atmDao = new AtmDao();
+    }
 
-	public Atm getAtmDetail(String name) {
-		return atmDao.getAtmDetail(name);
-	}
+    public boolean isAtmValidate(int atmId, String pwd) {
+        Atm atm = atmDao.getAtmByIDAndPwd(atmId, pwd);
+
+        return atm != null && atm.getPwd().equals(pwd);
+    }
 }

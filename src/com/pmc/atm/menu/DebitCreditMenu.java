@@ -2,6 +2,7 @@ package com.pmc.atm.menu;
 
 import com.pmc.atm.ApplicationMain;
 import com.pmc.atm.dao.AccountDao;
+import com.pmc.atm.model.Account;
 import com.pmc.atm.model.Atm;
 import com.pmc.atm.service.AccountService;
 import com.pmc.atm.service.TransactionService;
@@ -53,14 +54,25 @@ public class DebitCreditMenu {
     }
 
     private void performDebit(Scanner scan) {
-        AccountService accountService = new AccountService();
         int accountId = validateAndGetAccountId(scan);
+        int atmId = selectedAtm.getId();
+        TransactionService ts = new TransactionService();
 
         if (accountId != -1) {
+            boolean debitSuccess = false;
             System.out.print("Enter the amount to debit: ");
             int amount = scan.nextInt();
-            TransactionService ts = new TransactionService();
-            boolean debitSuccess = ts.performDebit(accountId, amount);
+
+            if (amount > 0) {
+                debitSuccess = ts.performDebitOperation(atmId, accountId, amount);
+                Account account = accountDao.getAccountByID(accountId);
+                int updatedBalance = account.getBalance();
+                System.out.println("Amount debited successfully!");
+                System.out.println("Account Balance: " + updatedBalance);
+            } else {
+                System.out.println("Please enter amount greater than 0.");
+            }
+
 
             if (debitSuccess) {
                 System.out.println("Debit successful.");
@@ -75,13 +87,23 @@ public class DebitCreditMenu {
     }
 
     private void performCredit(Scanner scan) {
-        TransactionService ts = new TransactionService();
         int accountId = validateAndGetAccountId(scan);
+        int atmId = selectedAtm.getId();
+        TransactionService ts = new TransactionService();
 
         if (accountId != -1) {
+            boolean creditSuccess = false;
             System.out.print("Enter the amount to credit: ");
             int amount = scan.nextInt();
-            boolean creditSuccess = ts.performCredit(accountId, amount);
+            if (amount > 0) {
+                creditSuccess = ts.performCreditOperation(atmId, accountId, amount);
+                Account account = accountDao.getAccountByID(accountId);
+                int updatedBalance = account.getBalance();
+                System.out.println("Amount credited successfully!");
+                System.out.println("Account Balance: " + updatedBalance);
+            } else {
+                System.out.println("Please enter amount greater than 0.");
+            }
 
             if (creditSuccess) {
                 System.out.println("Credit successful.");

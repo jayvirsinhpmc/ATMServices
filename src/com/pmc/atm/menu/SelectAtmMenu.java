@@ -4,7 +4,6 @@ import com.pmc.atm.ApplicationMain;
 import com.pmc.atm.dao.AtmDao;
 import com.pmc.atm.model.Atm;
 
-import java.sql.SQLException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -14,29 +13,25 @@ public class SelectAtmMenu {
         AtmDao atmDao = new AtmDao();
 
         System.out.println("===============================================================");
-        System.out.println("Select ATM Menu");
+        System.out.println("Select ATM");
         System.out.println("===============================================================");
-        try {
-            List<Atm> atms = atmDao.getAllAtmDetails();
-            displayAtms(atms);
+        List<Atm> atms = atmDao.getAllAtmDetails();
+        displayAtms(atms);
 
-            System.out.print("Select an ATM (Enter ATM number): ");
-            int selectedAtmNumber = scan.nextInt();
+        System.out.print("Select an ATM (Enter ATM number): ");
+        int selectedAtmNumber = scan.nextInt();
 
-            // Validate the selected ATM number
-            if (selectedAtmNumber >= 1 && selectedAtmNumber <= atms.size()) {
-                Atm selectedAtm = atms.get(selectedAtmNumber - 1); // Adjust for 0-based index
-                System.out.println("Selected ATM: " + selectedAtm.getName());
+        // Validate the selected ATM number
+        if (selectedAtmNumber >= 1 && selectedAtmNumber <= atms.size()) {
+            Atm selectedAtm = atms.get(selectedAtmNumber - 1); // Adjust for 0-based index
+            System.out.println("Selected ATM: " + selectedAtm.getName());
 
-                // Pass the selected ATM to the debit or credit menu
-                DebitCreditMenu debitCreditMenu = new DebitCreditMenu(selectedAtm);
-                debitCreditMenu.menu(scan);
-            } else {
-                System.out.println("Invalid ATM selection. Please enter a valid ATM number.");
-                menu(scan);
-            }
-        } catch (SQLException e) {
-            System.err.println("Error fetching ATM details: " + e.getMessage());
+            // Pass the selected ATM to the debit or credit menu
+            DebitCreditMenu debitCreditMenu = new DebitCreditMenu(selectedAtm);
+            debitCreditMenu.menu(scan);
+        } else {
+            System.out.println("Invalid ATM selection. Please enter a valid ATM number.");
+            menu(scan);
         }
         System.out.println("Enter 9 -> Back");
         System.out.println("Enter 0 -> Exit");
