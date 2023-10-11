@@ -24,7 +24,7 @@ public class DebitCreditMenu {
 
     public void menu(Scanner scan) {
         System.out.println("===============================================================");
-        System.out.println(" Enter Account ID and Password For Transaction ");
+        System.out.println(" Select Transaction Operation ");
         System.out.println("===============================================================");
         System.out.println("Enter 1 -> Debit Money");
         System.out.println("Enter 2 -> Credit Money");
@@ -72,18 +72,11 @@ public class DebitCreditMenu {
             } else {
                 System.out.println("Please enter amount greater than 0.");
             }
-
-
-            if (debitSuccess) {
-                System.out.println("Debit successful.");
-            } else {
-                System.out.println("Debit failed.");
-            }
         }
 
         // After the transaction, return to the main menu
-        SelectAtmMenu sam = new SelectAtmMenu();
-        sam.menu(scan);
+        MenuOne menuOne = new MenuOne();
+        menuOne.menu(scan);
     }
 
     private void performCredit(Scanner scan) {
@@ -104,20 +97,17 @@ public class DebitCreditMenu {
             } else {
                 System.out.println("Please enter amount greater than 0.");
             }
-
-            if (creditSuccess) {
-                System.out.println("Credit successful.");
-            } else {
-                System.out.println("Credit failed.");
-            }
         }
 
         // After the transaction, return to the main menu
-        SelectAtmMenu sam = new SelectAtmMenu();
-        sam.menu(scan);
+        MenuOne menuOne = new MenuOne();
+        menuOne.menu(scan);
     }
 
     private int validateAndGetAccountId(Scanner scan) {
+        System.out.println("===============================================================");
+        System.out.println(" Enter Account ID and Password For Transaction ");
+        System.out.println("===============================================================");
         System.out.print("Enter Account ID: ");
         int accountId = scan.nextInt();
         scan.nextLine();

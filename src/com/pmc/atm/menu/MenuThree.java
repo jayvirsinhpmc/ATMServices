@@ -21,12 +21,12 @@ public class MenuThree {
 
 		switch (option) {
 		case 1:
+			EditCustomerAccountMenu.menu(scan);
 			break;
 		case 2:
 			break;
-
-			case 3:
-				break;
+		case 3:
+			break;
 		case 9:
 			MainMenu.mainMenu(scan);
 			break;

@@ -6,26 +6,30 @@ import com.pmc.atm.util.DatabaseConnection;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class AtmDao {
 
-//	method to get atm balance using atmId
+	private Connection connection;
+
+	public AtmDao() {
+		this.connection = DatabaseConnection.getConnection();
+	}
+
+	//	method to get atm balance using atmId
 	public int getAtmBalance(int atmId) {
 		int atmBalance = 0;
 		try  {
-			Connection connection = DatabaseConnection.getConnection();
 			PreparedStatement pstmt = null;
 			ResultSet rs = null;
 			String selectAtmBalanceSql = "SELECT balance FROM atm WHERE ID = ?";
-			pstmt = connection.prepareStatement(selectAtmBalanceSql);
+			pstmt = this.connection.prepareStatement(selectAtmBalanceSql);
 			pstmt.setInt(1, atmId);
 			rs = pstmt.executeQuery();
-			atmBalance = rs.getInt("BALANCE");
-
-			connection.close();
+			if (rs.next()) {
+				atmBalance = rs.getInt("BALANCE");
+			}
 		} catch (Exception exc) {
 			exc.printStackTrace();
 		}
@@ -36,11 +40,10 @@ public class AtmDao {
 		List<Atm> list = new ArrayList<>();
 
 		try {
-			Connection connection = DatabaseConnection.getConnection();
 			PreparedStatement pstmt = null;
 			ResultSet rs = null;
 			String selectAllAtmSql = "SELECT * FROM atm";
-			pstmt = connection.prepareStatement(selectAllAtmSql);
+			pstmt = this.connection.prepareStatement(selectAllAtmSql);
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				int id = rs.getInt("ID");
@@ -51,7 +54,6 @@ public class AtmDao {
 				Atm atm = new Atm(id, name, pwd, balance);
 				list.add(atm);
 			}
-			connection.close();
 		} catch (Exception exc) {
 			exc.printStackTrace();
 		}
@@ -62,17 +64,15 @@ public class AtmDao {
 	public boolean isAtmBalanceUpdated(int atmId, int balance) {
 		boolean status = false;
 		try {
-			Connection connection = DatabaseConnection.getConnection();
 			PreparedStatement pstmt = null;
 			String selectAllAtmSql = "UPDATE atm SET BALANCE = ? WHERE ID = ?";
-			pstmt = connection.prepareStatement(selectAllAtmSql);
+			pstmt = this.connection.prepareStatement(selectAllAtmSql);
 			pstmt.setInt(1, balance);
 			pstmt.setInt(2, atmId);
 			int rowUpdated = pstmt.executeUpdate();
 			if (rowUpdated == 1) {
 				status = true;
 			}
-			connection.close();
 		} catch (Exception exc) {
 			exc.printStackTrace();
 		}
@@ -83,11 +83,10 @@ public class AtmDao {
 	public Atm getAtmByIDAndPwd (int atmId, String pwd) {
 		Atm atm = null;
 		try{
-			Connection connection = DatabaseConnection.getConnection();
 			PreparedStatement pstmt = null;
 			ResultSet rs = null;
 			String selectATMSql = "SELECT * FROM atm WHERE ID = ? AND ATM_PWD = ?";
-			pstmt = connection.prepareStatement(selectATMSql);
+			pstmt = this.connection.prepareStatement(selectATMSql);
 			pstmt.setInt(1, atmId);
 			pstmt.setString(2, pwd);
 			rs = pstmt.executeQuery();
@@ -99,10 +98,32 @@ public class AtmDao {
 				atm.setPwd(rs.getString("ATM_PWD"));
 				atm.setBalance(rs.getInt("BALANCE"));
 			}
-			connection.close();
 		} catch (Exception exc) {
 			exc.printStackTrace();
 		}
 		return atm;
 	}
+
+//	insert new atm
+	public boolean isNewATMInserted (Atm atm) {
+		boolean status = false;
+
+		try {
+			PreparedStatement pstmt = null;
+			String insertATMSql = "INSERT INTO atm (ATM_NAME, ATM_PWD, BALANCE) VALUES (?, ?, ?)";
+			pstmt = this.connection.prepareStatement(insertATMSql);
+			pstmt.setString(1, atm.getName());
+			pstmt.setString(2, atm.getPwd());
+			pstmt.setInt(3, atm.getBalance());
+			int rowUpdated = pstmt.executeUpdate();
+			if (rowUpdated == 1) {
+				status = true;
+			}
+		} catch (Exception exc) {
+			exc.printStackTrace();
+		}
+		return status;
+	}
 }
+
+//------------------------------------------------------------------------------

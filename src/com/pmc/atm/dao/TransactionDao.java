@@ -8,13 +8,18 @@ import java.sql.PreparedStatement;
 
 public class TransactionDao {
 
+    private Connection connection;
+
+    public TransactionDao () {
+        this.connection = DatabaseConnection.getConnection();
+    }
+
     public boolean isTransactionAdded (Transaction transaction) {
         boolean status = false;
         try {
-            Connection connection = DatabaseConnection.getConnection();
             PreparedStatement pstmt = null;
             String insertTransactionSql = "INSERT INTO transaction (ACCOUNT_ID, ATM_ID, TRANSACTION_TYPE, AMOUNT, datetimecreated) values (?, ?, ?, ?, ?)";
-            pstmt = connection.prepareStatement(insertTransactionSql);
+            pstmt = this.connection.prepareStatement(insertTransactionSql);
             pstmt.setInt(1, transaction.getAccountid());
             pstmt.setInt(2, transaction.getAtmId());
             pstmt.setString(3, transaction.getTransactionType());
@@ -24,11 +29,13 @@ public class TransactionDao {
             if (rowUpdated == 1) {
                 status = true;
             }
-
-            connection.close();
         } catch (Exception exc) {
             exc.printStackTrace();
         }
         return status;
     }
 }
+
+//------------------------------------------------------------------------------------
+
+

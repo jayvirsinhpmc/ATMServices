@@ -34,10 +34,8 @@ public class MenuFour {
 			menuFour.enterAtmNumber(scan);
 //			MenuFour.menu(scan);
 			break;
-		case 2:
-			break;
 		case 9:
-			MainMenu.mainMenu(scan);
+			MenuTwo.menu(scan);
 			break;
 		case 0:
 			ApplicationMain.exit();
@@ -70,10 +68,13 @@ public class MenuFour {
 				int atmBalance = atm.getBalance();
 				System.out.println("ATM balance is: " + atmBalance);
 				MenuTwo.menu(scan);
+			} else {
+				System.out.println("Unable to find account details. Please try again.");
+				enterAtmNumber(scan);
 			}
 		} else {
 			System.out.println("Invalid ATM selection. Please enter a valid ATM number.");
-			menu(scan);
+			enterAtmNumber(scan);
 		}
 	}
 

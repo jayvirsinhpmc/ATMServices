@@ -16,4 +16,23 @@ public class AccountService {
 
         return account != null && account.getAccountStatus().equals("Active") && account.getAccountPwd().equals(pwd);
     }
+
+    public boolean addNewAccount(int bankId, String accountType, String accountPwd, int accountBalance) {
+        boolean status = false;
+
+        Account account = new Account();
+        account.setBankId(bankId);
+        account.setAccountType(accountType);
+        account.setAccountStatus("Active");
+        account.setAccountPwd(accountPwd);
+        account.setBalance(accountBalance);
+
+        int accountId = accountDao.isNewAccountAdded(account);
+        if(accountId >= 0) {
+            status = true;
+        } else {
+            System.out.println("Something went wrong..");
+        }
+        return status;
+    }
 }

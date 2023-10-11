@@ -17,6 +17,9 @@ public class AccountBalanceCheckMenu {
 
     public void validateAndGetBalance(Scanner scan) {
         int accountBalance = 0;
+        System.out.println("===============================================================");
+        System.out.println(" Account Balance ");
+        System.out.println("===============================================================");
         System.out.print("Enter Account ID: ");
         int accountId = scan.nextInt();
         scan.nextLine();
@@ -31,9 +34,10 @@ public class AccountBalanceCheckMenu {
             Account account = accountDao.getAccountByID(accountId);
             accountBalance = account.getBalance();
             System.out.println("Your Account balance is: " + accountBalance);
+            MenuTwo.menu(scan);
         } else {
             System.out.println("Unable to find account details. Please try again.");
-            MenuTwo.menu(scan);
+            validateAndGetBalance(scan);
         }
     }
 }
