@@ -1,13 +1,8 @@
 package com.pmc.atm.menu;
 
 import com.pmc.atm.ApplicationMain;
-import com.pmc.atm.dao.AccountDao;
 import com.pmc.atm.dao.BankDao;
-import com.pmc.atm.dao.CustomerDao;
-import com.pmc.atm.model.Account;
-import com.pmc.atm.model.Atm;
 import com.pmc.atm.model.Bank;
-import com.pmc.atm.model.Customer;
 import com.pmc.atm.service.AccountService;
 import com.pmc.atm.service.CustomerServices;
 
@@ -20,7 +15,7 @@ public class EditCustomerAccountMenu {
         System.out.println(" Add Or Update - Customer detail ");
         System.out.println("===============================================================");
         System.out.println("Enter 1 -> Add New Customer Account");
-        System.out.println("Enter 2 -> Edit Customer Account");
+        System.out.println("Enter 2 -> Update Customer Account");
         System.out.println("Enter 9 -> Back");
         System.out.println("Enter 0 -> Exit");
 
@@ -30,9 +25,11 @@ public class EditCustomerAccountMenu {
         switch (option) {
             case 1:
                 EditCustomerAccountMenu menu = new EditCustomerAccountMenu();
-                menu.getCustomerAccountDetails(scan);
+                menu.getAndAddCustomerDetails(scan);
                 break;
             case 2:
+                UpdateAccountMenu updateAccountMenu = new UpdateAccountMenu();
+                updateAccountMenu.updateAccount(scan);
                 break;
             case 9:
                 MenuThree.menu(scan);
@@ -46,13 +43,14 @@ public class EditCustomerAccountMenu {
         }
     }
 
-    private void getCustomerAccountDetails(Scanner scan) {
+    private void getAndAddCustomerDetails(Scanner scan) {
         BankDao bankDao = new BankDao();
         List<Bank> banks = bankDao.getAllBankDetails();
         displayBank(banks);
 
         System.out.print("Select a Bank (Enter Bank number): ");
         int selectedBankNumber = scan.nextInt();
+        scan.nextLine();
 
         // Validate the selected ATM number
         if (selectedBankNumber >= 1 && selectedBankNumber <= banks.size()) {
@@ -63,43 +61,32 @@ public class EditCustomerAccountMenu {
             String name = scan.nextLine();
 
             System.out.println("Enter 1 for Saving and any other number for Salary");
-            System.out.print("Enter your choice: ");
+            System.out.print("Enter number: ");
             int accountType = scan.nextInt();
             scan.nextLine(); // Consume the newline character
 
             System.out.print("Enter your account password: ");
             String accountPwd = scan.nextLine();
 
-            System.out.println("Enter amount you want to add in the account: ");
+            System.out.print("Enter amount you want to add in the account: ");
             int accountBalance = scan.nextInt();
 
             AccountService accountService = new AccountService();
-            accountService.addNewAccount(selectedBank.getId(), accountType == 1 ? "Saving" : "Salary", accountPwd, accountBalance);
-
-            CustomerServices customerServices = new CustomerServices();
-            customerServices.addNewCustomer(name, )
-
-//            Account account = new Account();
-//            account.setBankId(selectedBank.getId());
-//            account.setAccountType(accountType == 1 ? "Saving" : "Salary");
-//            account.setAccountStatus("Active");
-//            account.setAccountPwd(accountPwd);
-//            account.setBalance(accountBalance);
-//
-//            AccountDao accountDao = new AccountDao();
-//            boolean isNewAccountAdded = accountDao.isNewAccountAdded(account);
-//            int accountId = account.getId();
-
-//            Customer customer = new Customer();
-//            customer.setName(name);
-//            customer.setAccountId(accountId);
-//
-//            CustomerDao customerDao = new CustomerDao();
-//            boolean isNewCustomerAdded = customerDao.isNewCustomerAdded(customer);
+            int accountId = accountService.addNewAccount(selectedBank.getId(), accountType == 1 ? "Saving" : "Salary", accountPwd, accountBalance);
+            if(accountId > 0) {
+                CustomerServices customerServices = new CustomerServices();
+                boolean status = customerServices.addNewCustomer(name, accountId);
+                if(status) {
+                    System.out.println("Your account is created");
+                    menu(scan);
+                }
+            } else {
+                System.out.println("Something went wrong..");
+            }
 
         } else {
             System.out.println("Invalid Bank selection. Please enter a valid Bank number.");
-            menu(scan);
+            getAndAddCustomerDetails(scan);
         }
     }
     private void displayBank(List<Bank> banks) {

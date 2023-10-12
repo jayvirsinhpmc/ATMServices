@@ -24,8 +24,10 @@ public class MenuThree {
 			EditCustomerAccountMenu.menu(scan);
 			break;
 		case 2:
+			EditATMMenu.menu(scan);
 			break;
 		case 3:
+			EditBankMenu.menu(scan);
 			break;
 		case 9:
 			MainMenu.mainMenu(scan);

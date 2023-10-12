@@ -1,7 +1,9 @@
 package com.pmc.atm.service;
 
 import com.pmc.atm.dao.AccountDao;
+import com.pmc.atm.dao.BankDao;
 import com.pmc.atm.model.Account;
+import com.pmc.atm.model.Bank;
 
 public class AccountService {
 
@@ -17,8 +19,9 @@ public class AccountService {
         return account != null && account.getAccountStatus().equals("Active") && account.getAccountPwd().equals(pwd);
     }
 
-    public boolean addNewAccount(int bankId, String accountType, String accountPwd, int accountBalance) {
-        boolean status = false;
+    public int addNewAccount(int bankId, String accountType, String accountPwd, int accountBalance) {
+
+        int accountId = 0;
 
         Account account = new Account();
         account.setBankId(bankId);
@@ -27,12 +30,25 @@ public class AccountService {
         account.setAccountPwd(accountPwd);
         account.setBalance(accountBalance);
 
-        int accountId = accountDao.isNewAccountAdded(account);
-        if(accountId >= 0) {
+        accountId = accountDao.isNewAccountAdded(account);
+
+
+        return accountId;
+    }
+
+    public Account getAccountByIdAndPwd (int accountId, String accountPwd) {
+        Account account = accountDao.getAccountByIdAndPwd(accountId, accountPwd);
+
+        return account;
+    }
+
+    public boolean isAccountUpdated (Account account) {
+        boolean status = false;
+
+        if (accountDao.isAccountUpdated(account)) {
             status = true;
-        } else {
-            System.out.println("Something went wrong..");
         }
         return status;
     }
+
 }

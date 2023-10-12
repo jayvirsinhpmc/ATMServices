@@ -104,8 +104,33 @@ public class AtmDao {
 		return atm;
 	}
 
-//	insert new atm
-	public boolean isNewATMInserted (Atm atm) {
+//	method to get atm using atmName and password
+	public Atm getAtmByNameAndPwd (String atmName, String atmPwd) {
+		Atm atm = null;
+		try{
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			String selectATMSql = "SELECT * FROM atm WHERE ATM_NAME = ? AND ATM_PWD = ?";
+			pstmt = this.connection.prepareStatement(selectATMSql);
+			pstmt.setString(1, atmName);
+			pstmt.setString(2, atmPwd);
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				atm = new Atm();
+				atm.setId(rs.getInt("ID"));
+				atm.setName(rs.getString("ATM_NAME"));
+				atm.setPwd(rs.getString("ATM_PWD"));
+				atm.setBalance(rs.getInt("BALANCE"));
+			}
+		} catch (Exception exc) {
+			exc.printStackTrace();
+		}
+		return atm;
+	}
+
+//	add new atm
+	public boolean isNewATMAdded (Atm atm) {
 		boolean status = false;
 
 		try {
@@ -115,6 +140,29 @@ public class AtmDao {
 			pstmt.setString(1, atm.getName());
 			pstmt.setString(2, atm.getPwd());
 			pstmt.setInt(3, atm.getBalance());
+			int rowUpdated = pstmt.executeUpdate();
+			if (rowUpdated == 1) {
+				status = true;
+			}
+		} catch (Exception exc) {
+			exc.printStackTrace();
+		}
+		return status;
+	}
+
+//	update atm
+	public boolean isAtmUpdated (Atm atm) {
+		boolean status = false;
+		try {
+			PreparedStatement pstmt = null;
+			String updateSql = "UPDATE atm SET ATM_NAME = ?, ATM_PWD = ?, BALANCE = ? WHERE ID = ?";
+			pstmt = this.connection.prepareStatement(updateSql);
+
+			pstmt.setString(1, atm.getName());
+			pstmt.setString(2, atm.getPwd());
+			pstmt.setInt(3, atm.getBalance());
+			pstmt.setInt(4, atm.getId());
+
 			int rowUpdated = pstmt.executeUpdate();
 			if (rowUpdated == 1) {
 				status = true;

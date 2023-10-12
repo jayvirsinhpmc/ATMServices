@@ -1,8 +1,7 @@
 package com.pmc.atm.service;
 
-import com.pmc.atm.dao.AccountDao;
 import com.pmc.atm.dao.CustomerDao;
-import com.pmc.atm.model.Account;
+import com.pmc.atm.model.Atm;
 import com.pmc.atm.model.Customer;
 
 public class CustomerServices {
@@ -23,6 +22,22 @@ public class CustomerServices {
             status = true;
         } else {
             System.out.println("Something went wrong..");
+        }
+        return status;
+    }
+
+    public String getCustomerName (int accountId) {
+        String customerName = customerDao.getCustomerName(accountId);
+
+        return customerName;
+    }
+
+    //    update atm
+    public boolean updateCustomer(Customer customer) {
+        boolean status = false;
+
+        if(customerDao.isCustomerUpdated(customer)){
+            status = true;
         }
         return status;
     }
