@@ -47,9 +47,9 @@ public class UpdateATMMenu {
                     String newPwd = scan.nextLine();
                     atm.setPwd(newPwd); // Update the ATM's password
                 } else if (choice == 3) {
-                    System.out.print("Enter new balance: ");
+                    System.out.print("Enter amount to add in ATM: ");
                     int newBalance = scan.nextInt();
-                    atm.setBalance(newBalance); // Update the ATM's balance
+                    atm.setBalance(atm.getBalance() + newBalance); // Update the ATM's balance
                 } else {
                     System.out.println("Invalid choice. Please try again.");
                 }

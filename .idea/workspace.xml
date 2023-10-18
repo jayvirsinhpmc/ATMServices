@@ -2,22 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1a3af55f-4c55-4588-9194-192e164b0057" name="Changes" comment="Atm Sample">
-      <change afterPath="$PROJECT_DIR$/src/com/pmc/atm/menu/EditATMMenu.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/pmc/atm/menu/EditBankMenu.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/pmc/atm/menu/UpdateATMMenu.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/pmc/atm/menu/UpdateAccountMenu.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/pmc/atm/menu/UpdateBankMenu.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/pmc/atm/service/BankService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/pmc/atm/dao/AccountDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/pmc/atm/dao/AccountDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/pmc/atm/dao/AtmDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/pmc/atm/dao/AtmDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/pmc/atm/dao/BankDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/pmc/atm/dao/BankDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/pmc/atm/dao/CustomerDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/pmc/atm/dao/CustomerDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/pmc/atm/menu/EditCustomerAccountMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/pmc/atm/menu/EditCustomerAccountMenu.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/pmc/atm/menu/MenuThree.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/pmc/atm/menu/MenuThree.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/pmc/atm/service/AccountService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/pmc/atm/service/AccountService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/pmc/atm/service/AtmService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/pmc/atm/service/AtmService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/pmc/atm/service/CustomerServices.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/pmc/atm/service/CustomerServices.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/pmc/atm/menu/DebitCreditMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/pmc/atm/menu/DebitCreditMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/pmc/atm/menu/UpdateATMMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/pmc/atm/menu/UpdateATMMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/pmc/atm/menu/UpdateAccountMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/pmc/atm/menu/UpdateAccountMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/pmc/atm/service/TransactionService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/pmc/atm/service/TransactionService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,6 +23,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/ATM_Details" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/com/pmc/atm/menu/DebitCreditMenu.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/com/pmc/atm/menu/MenuFour.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/com/pmc/atm/menu/MenuOne.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/com/pmc/atm/menu/MenuThree.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/com/pmc/atm/menu/MenuTwo.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/com/pmc/atm/menu/SelectAtmMenu.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/com/pmc/atm/menu/UpdateATMMenu.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/com/pmc/atm/menu/UpdateAccountMenu.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/com/pmc/atm/service/TransactionService.java" root0="FORCE_HIGHLIGHTING" />
+  </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
@@ -47,7 +48,7 @@
   &quot;keyToString&quot;: {
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/chhasatiyaj/Desktop/TestATM&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/chhasatiyaj/Desktop/JavaCode&quot;,
     &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
@@ -140,7 +141,14 @@
       <option name="project" value="LOCAL" />
       <updated>1697026423196</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Atm Sample">
+      <created>1697114526623</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1697114526623</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">

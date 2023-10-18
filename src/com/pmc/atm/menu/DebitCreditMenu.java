@@ -59,18 +59,22 @@ public class DebitCreditMenu {
         TransactionService ts = new TransactionService();
 
         if (accountId != -1) {
-            boolean debitSuccess = false;
+//            boolean debitSuccess = false;
             System.out.print("Enter the amount to debit: ");
             int amount = scan.nextInt();
 
             if (amount > 0) {
-                debitSuccess = ts.performDebitOperation(atmId, accountId, amount);
-                Account account = accountDao.getAccountByID(accountId);
-                int updatedBalance = account.getBalance();
-                System.out.println("Amount debited successfully!");
-                System.out.println("Account Balance: " + updatedBalance);
+                if (ts.performDebitOperation(atmId, accountId, amount)) {
+                    Account account = accountDao.getAccountByID(accountId);
+                    int updatedBalance = account.getBalance();
+                    System.out.println("Amount debited successfully!");
+                    System.out.println("Account Balance: " + updatedBalance);
+                } else {
+                    performDebit(scan);
+                }
             } else {
                 System.out.println("Please enter amount greater than 0.");
+                performDebit(scan);
             }
         }
 
@@ -85,17 +89,21 @@ public class DebitCreditMenu {
         TransactionService ts = new TransactionService();
 
         if (accountId != -1) {
-            boolean creditSuccess = false;
+//            boolean creditSuccess = false;
             System.out.print("Enter the amount to credit: ");
             int amount = scan.nextInt();
             if (amount > 0) {
-                creditSuccess = ts.performCreditOperation(atmId, accountId, amount);
-                Account account = accountDao.getAccountByID(accountId);
-                int updatedBalance = account.getBalance();
-                System.out.println("Amount credited successfully!");
-                System.out.println("Account Balance: " + updatedBalance);
+                if (ts.performCreditOperation(atmId, accountId, amount)) {
+                    Account account = accountDao.getAccountByID(accountId);
+                    int updatedBalance = account.getBalance();
+                    System.out.println("Amount credited successfully!");
+                    System.out.println("Account Balance: " + updatedBalance);
+                } else {
+                    performCredit(scan);
+                }
             } else {
                 System.out.println("Please enter amount greater than 0.");
+                performCredit(scan);
             }
         }
 
@@ -120,6 +128,7 @@ public class DebitCreditMenu {
 
         if (!isValid) {
             System.out.println("Account validation failed. Please try again.");
+            menu(scan);
             return -1;
         }
 

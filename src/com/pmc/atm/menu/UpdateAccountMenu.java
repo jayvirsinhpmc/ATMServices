@@ -27,9 +27,9 @@ public class UpdateAccountMenu {
         String bankName = bankService.getBankName(bankId);
 
         // Retrieve customer name
-        int fatchedAccountId = account.getId();
+        int fetchedAccountId = account.getId();
         CustomerServices customerServices = new CustomerServices();
-        String customerName = customerServices.getCustomerName(fatchedAccountId);
+        String customerName = customerServices.getCustomerName(fetchedAccountId);
 
         Customer customer = new Customer();
 
@@ -65,7 +65,7 @@ public class UpdateAccountMenu {
                     String newName = scan.nextLine();
 
                     customer.setName(newName);
-                    customer.setId(fatchedAccountId);
+                    customer.setId(fetchedAccountId);
 
                 } else if (choice == 2) {
 
@@ -96,7 +96,7 @@ public class UpdateAccountMenu {
 
             System.out.println("---------------------------------------------------");
             System.out.println("Account Found: " + account.getId());
-            System.out.println("Customer Name: " + newN);
+//            System.out.println("Customer Name: " + newN);
             System.out.println("Bank Name: " + bankName);
             System.out.println("Account Balance = " + account.getBalance());
             System.out.println("Account Status = " + account.getAccountStatus());
@@ -105,10 +105,6 @@ public class UpdateAccountMenu {
             System.out.println("---------------------------------------------------");
 
             // Save the updated ATM entity
-            System.out.println(accountService.isAccountUpdated(account));
-            System.out.println(customerServices.updateCustomer(customer));
-
-
             if (accountService.isAccountUpdated(account)) {
                 System.out.println("Account updated successfully.");
                 // Now, update the associated customer information
