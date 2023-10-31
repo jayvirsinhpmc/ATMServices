@@ -3,7 +3,6 @@ package com.pmc.atm.menu;
 import java.util.Scanner;
 
 import com.pmc.atm.ApplicationMain;
-import com.pmc.atm.model.Bank;
 
 public class MenuThree {
 	public static void menu(Scanner scan) {

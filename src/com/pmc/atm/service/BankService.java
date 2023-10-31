@@ -3,8 +3,6 @@ package com.pmc.atm.service;
 import com.pmc.atm.dao.BankDao;
 import com.pmc.atm.model.Bank;
 
-import java.security.PublicKey;
-
 public class BankService {
     private BankDao bankDao;
 

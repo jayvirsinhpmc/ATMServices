@@ -1,9 +1,7 @@
 package com.pmc.atm.service;
 
 import com.pmc.atm.dao.AccountDao;
-import com.pmc.atm.dao.BankDao;
 import com.pmc.atm.model.Account;
-import com.pmc.atm.model.Bank;
 
 public class AccountService {
 

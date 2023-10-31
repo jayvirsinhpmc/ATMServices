@@ -1,7 +1,6 @@
 package com.pmc.atm.dao;
 
 import com.pmc.atm.model.Account;
-import com.pmc.atm.model.Atm;
 import com.pmc.atm.util.DatabaseConnection;
 
 import java.sql.Connection;

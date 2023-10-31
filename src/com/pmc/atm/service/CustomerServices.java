@@ -1,7 +1,6 @@
 package com.pmc.atm.service;
 
 import com.pmc.atm.dao.CustomerDao;
-import com.pmc.atm.model.Atm;
 import com.pmc.atm.model.Customer;
 
 public class CustomerServices {
