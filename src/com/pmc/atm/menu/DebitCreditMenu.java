@@ -59,7 +59,6 @@ public class DebitCreditMenu {
         TransactionService ts = new TransactionService();
 
         if (accountId != -1) {
-//            boolean debitSuccess = false;
             System.out.print("Enter the amount to debit: ");
             int amount = scan.nextInt();
 
@@ -89,7 +88,6 @@ public class DebitCreditMenu {
         TransactionService ts = new TransactionService();
 
         if (accountId != -1) {
-//            boolean creditSuccess = false;
             System.out.print("Enter the amount to credit: ");
             int amount = scan.nextInt();
             if (amount > 0) {
